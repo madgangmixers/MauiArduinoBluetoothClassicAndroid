@@ -1,0 +1,108 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+    <TargetFrameworks>net8.0-android;net8.0-ios;net8.0-maccatalyst;net8.0-windows10.0.19041.0</TargetFrameworks> 
+    
+    <OutputType>Exe</OutputType>
+    <RootNamespace>MauiArduinoBluetoothClassicAndroid</RootNamespace>
+    <UseMaui>true</UseMaui>
+    <SingleProject>true</SingleProject>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <EnablePreviewMsixTooling>true</EnablePreviewMsixTooling>
+
+    <ApplicationTitle>INTU 2025 Valve O'Matic</ApplicationTitle>
+
+    <ApplicationId>com.companyname.mauiarduinobluetoothclassicandroid</ApplicationId>
+
+    <ApplicationVersion>1</ApplicationVersion>
+
+    <UseInterpreter Condition="'$(Configuration)' == 'Debug'">True</UseInterpreter>
+
+    <!-- Mise à jour des conditions de target framework vers net8.0 -->
+    <SupportedOSPlatformVersion Condition="'$(TargetFramework)' == 'net8.0-ios'">14.2</SupportedOSPlatformVersion>
+    <SupportedOSPlatformVersion Condition="'$(TargetFramework)' == 'net8.0-maccatalyst'">14.0</SupportedOSPlatformVersion>
+    <SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'">31.0</SupportedOSPlatformVersion> 
+    
+    <SupportedOSPlatformVersion Condition="$(TargetFramework.Contains('-windows'))">10.0.17763.0</SupportedOSPlatformVersion>
+    <TargetPlatformMinVersion Condition="$(TargetFramework.Contains('-windows'))">10.0.17763.0</TargetPlatformMinVersion>
+</PropertyGroup>
+
+    <ItemGroup>
+        <!-- App Icon -->
+<!--        <MauiIcon Include="Resources\appicon.svg" ForegroundFile="Resources\appiconfg.svg" Color="#512BD4" />-->
+		<MauiIcon Include="Resources\AppIcon\appicon.svg" ForegroundFile="Resources\AppIcon\appiconfg.svg" Color="#FFFFFF" ForegroundScale="0.50" />
+
+        <!-- Splash Screen -->
+<!--        <MauiSplashScreen Include="Resources\appiconfg.svg" Color="#f87b0a" />-->
+<MauiSplashScreen Include="Resources\AppIcon\appiconfg.svg" Color="#FFFFFF" />
+
+        <!-- Images -->
+        <MauiImage Include="Resources\Images\*" />
+
+        <!-- Custom Fonts -->
+        <MauiFont Include="Resources\Fonts\*" />
+    </ItemGroup>
+
+    <ItemGroup Condition="$(TargetFramework.Contains('-windows'))">
+        <!-- Required - WinUI does not yet have buildTransitive for everything -->
+        <PackageReference Include="Microsoft.WindowsAppSDK" Version="1.5.240802000" />
+        <PackageReference Include="Microsoft.Graphics.Win2D" Version="1.2.0" />
+    </ItemGroup>
+
+    <PropertyGroup Condition="$(TargetFramework.Contains('-windows'))">
+        <OutputType>WinExe</OutputType>
+        <RuntimeIdentifier>win10-x64</RuntimeIdentifier>
+    </PropertyGroup><ItemGroup>
+  <None Remove="Resources\raw\close.wav" />
+  <None Remove="Resources\raw\open.wav" />
+  <None Remove="Resources\raw\tada.wav" />
+</ItemGroup>
+
+    <!-- Les éléments suivants sont conservés car ils gèrent l'inclusion/exclusion de votre fichier spécifique -->
+    <ItemGroup>
+      <_MauiCompileToAdd Remove="Platforms\Android\Bluetooth\BluetoothConnector.cs" />
+    </ItemGroup><ItemGroup>
+  <MauiAsset Include="Platforms\Android\Resources\Raw\close.wav">
+    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+  </MauiAsset>
+  <MauiAsset Include="Platforms\Android\Resources\Raw\open.wav">
+    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+  </MauiAsset>
+  <MauiAsset Include="Platforms\Android\Resources\Raw\tada.wav" />
+</ItemGroup>
+
+    <ItemGroup>
+      <None Include="Platforms\Android\Bluetooth\BluetoothConnector.cs" />
+    </ItemGroup>
+    <!-- FIN des éléments gérant votre fichier Bluetooth -->
+    
+    <!-- Harmonisation des dépendances AndroidX spécifiques à Android.
+         Inclusion de tous les packages en conflit et de leurs versions KTX associées. -->
+    <ItemGroup Condition="'$(TargetFramework)' == 'net8.0-android'">
+        <!-- Collection et Collection.Ktx pour résoudre le conflit ArrayMapKt -->
+        <PackageReference Include="Xamarin.AndroidX.Collection" Version="1.5.0.3" />
+        <PackageReference Include="Xamarin.AndroidX.Collection.Ktx" Version="1.5.0.3" />
+        
+        <!-- Lifecycle.Common et Lifecycle.Runtime pour résoudre le conflit initial. -->
+        <PackageReference Include="Xamarin.AndroidX.Lifecycle.Common" Version="2.9.2.2" />
+        <PackageReference Include="Xamarin.AndroidX.Lifecycle.Runtime" Version="2.9.2.2" />
+
+        <!-- NOUVEAU : Ajout de Lifecycle.Runtime.Ktx pour résoudre la duplication de FlowExtKt. -->
+        <PackageReference Include="Xamarin.AndroidX.Lifecycle.Runtime.Ktx" Version="2.9.2.2" />
+        
+        <!-- Package requis pour votre code (Work.Runtime) -->
+        <PackageReference Include="Xamarin.AndroidX.Work.Runtime" Version="2.10.3" />
+    </ItemGroup>
+
+    <!-- Mises à jour des packages MAUI -->
+    <ItemGroup>
+        <PackageReference Update="Microsoft.Maui.Controls" Version="9.0.110" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Update="Microsoft.Maui.Controls.Compatibility" Version="9.0.110" />
+    </ItemGroup><ItemGroup>
+  <Folder Include="Resources\raw\" />
+</ItemGroup>
+
+</Project>

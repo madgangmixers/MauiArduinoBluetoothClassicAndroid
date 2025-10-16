@@ -1,0 +1,83 @@
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MauiArduinoBluetoothClassicAndroid.MainPage"
+             BackgroundColor="{DynamicResource SecondaryColor}">
+	<!--<Label Text="Hello Arduino Bluetooth Classic!"
+			VerticalTextAlignment="Center"
+			HorizontalTextAlignment="Center"/>-->
+    <Grid RowDefinitions="148, Auto, Auto, Auto, Auto, Auto, Auto, Auto, Auto, *" 
+          Padding="20"
+          RowSpacing="15">
+
+        <Image Source="intu2v.png"
+               SemanticProperties.Description="Logo de l'application"
+               HeightRequest="148"
+               Grid.Row="0"
+               HorizontalOptions="Center" />
+        
+        <HorizontalStackLayout Grid.Row="1" Spacing="20" HorizontalOptions="Center">
+            <Label Text="11h30" FontSize="Large" VerticalOptions="Center" WidthRequest="80"/>
+            <Button Text="{Binding Time1ButtonText}"
+                    Clicked="TimeButton_Clicked" 
+                    CommandParameter="11h30"
+                    BackgroundColor="{Binding Time1Color}"
+                    TextColor="White"
+                    WidthRequest="180"/>
+        </HorizontalStackLayout>
+
+        <HorizontalStackLayout Grid.Row="2" Spacing="20" HorizontalOptions="Center">
+            <Label Text="16h00" FontSize="Large" VerticalOptions="Center" WidthRequest="80"/>
+            <Button Text="{Binding Time2ButtonText}"
+                    Clicked="TimeButton_Clicked" 
+                    CommandParameter="16h00"
+                    BackgroundColor="{Binding Time2Color}" 
+                    TextColor="White"
+                    WidthRequest="180"/>
+        </HorizontalStackLayout>
+
+        <HorizontalStackLayout Grid.Row="3" Spacing="20" HorizontalOptions="Center">
+            <Label Text="20h00" FontSize="Large" VerticalOptions="Center" WidthRequest="80"/>
+            <Button Text="{Binding Time3ButtonText}"
+                    Clicked="TimeButton_Clicked" 
+                    CommandParameter="20h00"
+                    BackgroundColor="{Binding Time3Color}" 
+                    TextColor="White"
+                    WidthRequest="180"/>
+        </HorizontalStackLayout>
+
+        <HorizontalStackLayout Grid.Row="4" Spacing="20" HorizontalOptions="Center">
+            <Label Text="Nuit" FontSize="Large" VerticalOptions="Center" WidthRequest="80"/>
+            <Button Text="{Binding Time4ButtonText}"
+                    Clicked="TimeButton_Clicked" 
+                    CommandParameter="22h-7h30"
+                    BackgroundColor="{Binding Time4Color}" 
+                    TextColor="White"
+                    WidthRequest="180"/>
+        </HorizontalStackLayout>
+
+        <BoxView Grid.Row="5" HeightRequest="1" Color="LightGray" Margin="0, 10, 0, 5"/>
+
+        <Button Text="Ouvrir valve (Action Immediate)" 
+                Grid.Row="6"
+                Clicked="OpenButton_Clicked"
+                BackgroundColor="#78DB78" 
+                TextColor="White"
+                HorizontalOptions="Fill"  
+                Margin="0, 5, 0, 0"/>
+
+            <Button Text="Fermer valve (Action Immediate)" 
+                Grid.Row="7"
+                Clicked="CloseButton_Clicked"
+                BackgroundColor="#C76567" 
+                TextColor="White"
+                HorizontalOptions="Fill"
+                Margin="0, 5, 0, 0" />
+
+        <Button Text="{Binding DebugModeText}"
+                Grid.Row="8"
+                Clicked="DebugMode_Clicked"
+                BackgroundColor="{Binding DebugModeColor}"
+                TextColor="White"
+                HorizontalOptions="Fill"/>
+    </Grid>
+</ContentPage>

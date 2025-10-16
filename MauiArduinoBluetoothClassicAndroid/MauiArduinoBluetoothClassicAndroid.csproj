@@ -53,6 +53,8 @@
         <OutputType>WinExe</OutputType>
         <RuntimeIdentifier>win10-x64</RuntimeIdentifier>
     </PropertyGroup><ItemGroup>
+  <Compile Remove="QuestionReponse.cs" />
+</ItemGroup><ItemGroup>
   <None Remove="Resources\raw\close.wav" />
   <None Remove="Resources\raw\open.wav" />
   <None Remove="Resources\raw\tada.wav" />

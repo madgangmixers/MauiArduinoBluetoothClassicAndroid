@@ -9,6 +9,12 @@ namespace MauiArduinoBluetoothClassicAndroid.Platforms.Android.Bluetooth
 {
     public class BluetoothConnector : IBluetoothConnector
     {
+
+        /// <summary>
+        /// The standard UDID for SSP
+        /// </summary>
+        private const string SspUdid = "00001101-0000-1000-8000-00805f9b34fb";
+        private BluetoothAdapter _adapter;
         private BluetoothSocket _socket; 
         /// <inheritdoc />
         public async Task<List<string>> GetConnectedDevices()
@@ -95,10 +101,5 @@ namespace MauiArduinoBluetoothClassicAndroid.Platforms.Android.Bluetooth
             return status;
         }
 
-        /// <summary>
-        /// The standard UDID for SSP
-        /// </summary>
-        private const string SspUdid = "00001101-0000-1000-8000-00805f9b34fb";
-        private BluetoothAdapter _adapter;
     }
 }
